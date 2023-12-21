@@ -5,6 +5,7 @@ class Location:
         self.locations_nearby = {}
         self.items = []
         self.enemies = []
+        self.cutseneces = []
 
     def add_item(self, item):
         self.items.append(item)
@@ -28,15 +29,24 @@ class Location:
         for enemy in self.enemies:
             if enemy.name == enemy_name:
                 return enemy
-
+    def get_description(self):
+        return self.description
     def get_location(self, direction):
         return self.locations_nearby.get(direction)
-
     def get_items(self):
         return self.items
 
     def get_enemies(self):
         return self.enemies
 
-    def get_locations_nearby(self):
+    def _get_locations_nearby(self):
         return self.locations_nearby
+    def get_locations_nearby(self):
+        prompt = "You can go in this directions:"
+        for direction in self._get_locations_nearby().keys():
+            prompt += f"\n - " + direction
+        return prompt
+    def add_cutscene(self, cutscene):
+        self.cutseneces.append(cutscene)
+    def get_cutsceneses(self):
+        return self.cutseneces
