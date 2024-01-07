@@ -1,9 +1,8 @@
 
-def create_player(name: str, character_class: object, race_class: object):
-    class Player(character_class, race_class):
+def create_player(name: str, character_class):
+    class Player(character_class):
         def __init__(self, name: str):
-            super(character_class, self).__init__()
-            super(race_class, self).__init__()
+            super().__init__()
             self.name = name
 
         def show_items_in_inventory(self):
