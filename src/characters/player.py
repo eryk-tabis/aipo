@@ -1,8 +1,8 @@
 
 def create_player(name: str, character_class):
     class Player(character_class):
-        def __init__(self, name: str):
-            super().__init__()
+        def __init__(self, name: str, **kwargs):
+            super(Player, self).__init__()
             self.name = name
 
         def show_items_in_inventory(self):
@@ -21,4 +21,4 @@ def create_player(name: str, character_class):
                 if self.inventory[item.name]["amount"] <= 0:
                     del self.inventory[item.name]
 
-    return Player
+    return Player(name)

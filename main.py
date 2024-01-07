@@ -43,7 +43,7 @@ def play_location(world: World):
 def create_character():
     """Create the character"""
     #Now this is mock, changed when we have a character creator
-    player = create_player("Player", Warrior)("Player")
+    player = create_player("Player", Warrior)
     item = Item("Healing Potion", "Heals 10 Hp", "Healing", 10, 1)
     player.add_to_inventory(item)
     return player
