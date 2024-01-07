@@ -2,5 +2,5 @@
 class Character():
     def __init__(self):
         self.name = None
-        self.inventory = []
+        self.inventory = {}
 
