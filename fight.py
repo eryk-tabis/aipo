@@ -1,5 +1,5 @@
 from random import randint
-from colors import Colorizer
+from colorizer import Colorizer
 from src.characters.character import Character
 from src.characters.warrior import Warrior
 from inventory import inventory

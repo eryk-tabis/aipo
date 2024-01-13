@@ -10,8 +10,10 @@ class Colorizer():
     @staticmethod
     def colorize_green(text):
         return f"{colors['green']}{text}{colors['end']}"
+    @staticmethod
     def colorize_red(text):
         return f"{colors['red']}{text}{colors['end']}"
+    @staticmethod
     def colorize_orange(text):
         return f"{colors['orange']}{text}{colors['end']}"
 
