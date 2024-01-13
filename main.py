@@ -1,13 +1,11 @@
-from src.locations.world import World
-from src.locations.location import Location
-from setup_world import setup_world
-from fight import fight
+from src.characters import player
 from inventory import inventory
+from setup_world import setup_world
 from src.characters.player import create_player
 from src.characters.warrior import Warrior
-from src.races.human import Human
+from fight import fight
 from src.items.item import Item
-
+from src.locations.world import World
 
 
 def main():
@@ -20,7 +18,8 @@ def main():
                 cutscene.play_cutscene()
         if(world.current_location.get_enemies()):
             for enemy in world.current_location.get_enemies():
-                fight(player, enemy)
+                wasEnemyDefeated = fight(player, enemy)
+                if not wasEnemyDefeated : return
         print("What do you want to do?")
         print(" - Inventory"
               "\n - Go to location")
