@@ -28,7 +28,7 @@ def loot_enemy_iventory(player, enemy: Character):
     print(f"You have recieved some items from the defeated enemy:")
     for item in enemy.inventory.keys():
         player.add_to_inventory(enemy.inventory[item]["item"])
-        print(Colorizer.colorize_orange(f" - {enemy.inventory[item]['amount']}x {enemy.inventory[item]['item'].name}"))
+        print(Colorizer.colorize_orange(f" - {enemy.inventory[item]['item'].name} (x{enemy.inventory[item]['amount']})"))
 
 def fight(player, enemy: Warrior):
     """Fight the enemy"""
