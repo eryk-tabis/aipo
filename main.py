@@ -20,6 +20,7 @@ def main():
             for enemy in world.current_location.get_enemies():
                 wasEnemyDefeated = fight(player, enemy)
                 if not wasEnemyDefeated : return
+                world.current_location.remove_enemy(enemy)
         print("What do you want to do?")
         print(" - Inventory"
               "\n - Go to location")
