@@ -12,6 +12,9 @@ class Location:
 
     def add_enemy(self, enemy):
         self.enemies.append(enemy)
+    
+    def remove_enemy(self, enemy):
+        self.enemies.remove(enemy)
 
     def add_location(self, location, direction):
         self.locations_nearby[direction] = location
