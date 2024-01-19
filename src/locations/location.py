@@ -44,10 +44,15 @@ class Location:
 
     def _get_locations_nearby(self):
         return self.locations_nearby
-    def get_locations_nearby(self):
+    def get_locations_nearby(self, lady_of_lake_flag):
         prompt = "Możesz iść tutaj:"
-        for direction in self._get_locations_nearby().keys():
-            prompt += f"\n - " + direction
+        if self.name == "Rynek miasta" and not lady_of_lake_flag:
+            for direction in self._get_locations_nearby().keys():
+                if direction != "Droga śmierci":
+                    prompt += f"\n - " + direction
+        else:
+            for direction in self._get_locations_nearby().keys():
+                prompt += f"\n - " + direction
         return prompt
     def add_cutscene(self, cutscene):
         self.cutseneces.append(cutscene)

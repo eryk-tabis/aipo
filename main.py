@@ -9,6 +9,8 @@ from src.locations.world import World
 
 class_dict = {"czlowiek": Warrior,} # TODO: Add more classes
 
+lady_of_lake_flag = False
+
 def main():
     print(get_dialogs_from_file("opening.txt"))
     class_choice = input(get_dialogs_from_file("class_choice.txt"))
@@ -35,6 +37,7 @@ def main():
                     print(get_dialogs_from_file("lady_of_the_lake_1.txt")
                           + player.name
                           + get_dialogs_from_file("lady_of_the_lake_2.txt"))
+                    lady_of_lake_flag = True
                     # TODO: Add crucial item
                     # player.add_to_inventory(item)
                 if enemy.name == "Sventino":
@@ -59,7 +62,7 @@ def main():
 def play_location(world: World):
     """Play the location"""
     print(world.current_location.get_description())
-    print(world.current_location.get_locations_nearby())
+    print(world.current_location.get_locations_nearby(lady_of_lake_flag))
     world.current_location = world.current_location.get_location(input("Gdzie chcesz iść?"))
 
 
