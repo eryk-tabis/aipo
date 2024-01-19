@@ -45,11 +45,13 @@ class Location:
     def _get_locations_nearby(self):
         return self.locations_nearby
     def get_locations_nearby(self):
-        prompt = "You can go in this directions:"
+        prompt = "Możesz iść tutaj:"
         for direction in self._get_locations_nearby().keys():
             prompt += f"\n - " + direction
         return prompt
     def add_cutscene(self, cutscene):
         self.cutseneces.append(cutscene)
     def get_cutsceneses(self):
-        return self.cutseneces
+        return self.cutseneces or None
+    def remove_cutscene(self, cutscene):
+        self.cutseneces.remove(cutscene)
