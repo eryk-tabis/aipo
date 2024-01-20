@@ -7,46 +7,79 @@ from fight import fight
 from src.items.item import Item
 from src.locations.world import World
 
+class_dict = {"czlowiek": Warrior,} # TODO: Add more classes
+
+lady_of_lake_flag = False
 
 def main():
+    print(get_dialogs_from_file("opening.txt"))
+    class_choice = input(get_dialogs_from_file("class_choice.txt"))
+    assert class_dict[class_choice]
+    name_choice = input(get_dialogs_from_file("name_choice.txt"))
+    player = create_character(class_choice, name_choice)
     world = World()
     setup_world(world)
-    player = create_character()
+    print("Ta noc była dziwna dla Ciebie " + name_choice + get_dialogs_from_file("opening_2.txt"))
+    print(get_dialogs_from_file("opening_3.txt"))
+    print(get_dialogs_from_file("opening_4.txt"))
     while True:
-        if(world.current_location.get_cutsceneses()):
+        if (world.current_location.get_cutsceneses()):
             for cutscene in world.current_location.get_cutsceneses():
                 cutscene.play_cutscene()
-        if(world.current_location.get_enemies()):
+                world.current_location.remove_cutscene(cutscene)
+        if (world.current_location.get_enemies()):
             for enemy in world.current_location.get_enemies():
+                if enemy.name == "Pani jeziora":
+                    print("Spotykasz potężną Panią jeziora, która bez słowa Cię atakuje!!!")
                 wasEnemyDefeated = fight(player, enemy)
-                if not wasEnemyDefeated : return
+                if not wasEnemyDefeated: return
+                if enemy.name == "Pani jeziora":
+                    print(get_dialogs_from_file("lady_of_the_lake_1.txt")
+                          + player.name
+                          + get_dialogs_from_file("lady_of_the_lake_2.txt"))
+                    lady_of_lake_flag = True
+                    # TODO: Add crucial item
+                    # player.add_to_inventory(item)
+                if enemy.name == "Sventino":
+                    print(get_dialogs_from_file("sventino_2.txt"))
+                    print("Koniec gry")
+                    input()  # just to pause the program
+                    return
                 world.current_location.remove_enemy(enemy)
-        print("What do you want to do?")
-        print(" - Inventory"
-              "\n - Go to location")
+        print("Jesteś w: " + world.current_location.name)
+        print("Co chcesz zrobić?")
+        print(" - Sprawdź ekwipunek"
+              "\n - Idź do innej lokacji")
         action = str(input())
-        if action.lower() == "inventory":
+        if action.lower() == "sprawdź ekwipunek":
             inventory(player)
-        elif action.lower() == "go to location":
+        elif action.lower() == "idź do innej lokacji":
             play_location(world)
         else:
-            print("That is not a valid action")
+            print("Niepoprawna akcja")
 
 
 def play_location(world: World):
     """Play the location"""
     print(world.current_location.get_description())
-    print(world.current_location.get_locations_nearby())
-    world.current_location = world.current_location.get_location(input("Where do you want to go?"))
+    print(world.current_location.get_locations_nearby(lady_of_lake_flag))
+    world.current_location = world.current_location.get_location(input("Gdzie chcesz iść?"))
 
 
-def create_character():
+def create_character(class_choice, name_choice):
     """Create the character"""
-    #Now this is mock, changed when we have a character creator
-    player = create_player("Player", Warrior)
+    player = create_player(name_choice, class_dict[class_choice])
     item = Item("Healing Potion", "Heals 10 Hp", "Healing", 10, 1)
     player.add_to_inventory(item)
     return player
+
+
+def get_dialogs_from_file(file_name):
+    """Get the dialogs from a file"""
+    string = ""
+    with open("src/dialogs/" + file_name, "r", encoding="utf-8") as file:
+        string += file.read()
+    return string
 
 
 if __name__ == "__main__":
