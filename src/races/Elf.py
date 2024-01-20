@@ -1,5 +1,5 @@
 from src.races.race import Race
-from aipo.src.weapons.Bows.bow import Bow
+from aipo.src.weapons.bows.bow import Bow
 class Elf(Race):
     def __init__(self):
         super(Elf,self).__init__()

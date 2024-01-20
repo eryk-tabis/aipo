@@ -1,5 +1,5 @@
 from src.races.race import Race
-from aipo.src.weapons.Clubs.club import Club
+from aipo.src.weapons.clubs.club import Club
 
 
 

@@ -1,5 +1,5 @@
 from src.races.race import Race
-from aipo.src.weapons.Swords.sword import Sword
+from aipo.src.weapons.swords.sword import Sword
 class Human(Race):
     def __init__(self):
         super(Human, self).__init__()
