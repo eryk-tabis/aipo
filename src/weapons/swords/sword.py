@@ -3,3 +3,6 @@ class Sword(Weapon):
     def __init__(self):
         self.name = "Sword"
         self.damage = 10
+        self.accuracy = 80
+        self.type = "Melee"
+
