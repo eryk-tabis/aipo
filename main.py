@@ -11,9 +11,9 @@ from src.locations.world import World
 
 class_dict = {"czlowiek": Warrior, "ork": Tank, "elf":Shooter}
 
-lady_of_lake_flag = False
 
 def main():
+    lady_of_lake_flag = False
     print(get_dialogs_from_file("opening.txt"))
     while True:
         class_choice = input(get_dialogs_from_file("class_choice.txt"))
