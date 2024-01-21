@@ -7,7 +7,7 @@ class Elf(Race):
         self.stamina = 120
         self.strength = 5
         self.defense = 5
-        self.agility = 15
+        self.agility = 90
         self.luck = 15
         self.equipped = Bow()
 
