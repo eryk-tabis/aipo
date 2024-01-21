@@ -5,6 +5,6 @@ class Shaman(Enemy):
         super(Shaman,self).__init__()
         self.name = "Szaman"
         self.hp = 80
-        self.strength = 6
+        self.damage = 6
         self.defense = 2
         self.agility = 40

@@ -6,9 +6,9 @@ from src.weapons.clubs.club import Club
 class Orc(Race):
     def __init__(self):
         super(Orc, self).__init__()
-        self.hitPoints = 120
+        self.hp = 160
         self.stamina = 80
-        self.strength = 15
+        self.damage = 15
         self.defense = 15
         self.agility = 60
         self.luck = 5

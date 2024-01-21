@@ -5,6 +5,6 @@ class CrazyFrog(Enemy):
         super(CrazyFrog,self).__init__()
         self.name = "Szalona Żaba"
         self.hp = 20
-        self.strength = 8
+        self.damage = 8
         self.defense = 3
         self.agility = 35

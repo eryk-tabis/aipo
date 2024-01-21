@@ -5,6 +5,6 @@ class Rat(Enemy):
         super(Rat,self).__init__()
         self.name = "Szczur"
         self.hp = 25
-        self.strength = 5
+        self.damage = 5
         self.defense = 3
         self.agility = 25

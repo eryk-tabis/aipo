@@ -1,3 +1,23 @@
+from src.items.medium_attack_potion import MediumAttackPotion
+from src.items.medium_healing_potion import MediumHealingPotion
+from src.items.large_attack_potion import LargemAttackPotion
+from src.items.large_healling_portion import LargeHealingPotion
+from src.items.bread import Bread
+from src.items.apple import Apple
+from src.enemies.lady_from_lake import LadyOfTheLake
+from src.enemies.sventino import Sventino
+from src.enemies.sventino_guard import SventinoGuard
+from src.enemies.fire_elemental import FireElemental
+from src.enemies.shaman import Shaman
+from src.enemies.lakeman import LakeMan
+from src.enemies.dark_druid import DarkDruid
+from src.enemies.rat_king import RatKing
+from src.enemies.rat import Rat
+from src.enemies.wolf import Wolf
+from src.enemies.boar import Boar
+from src.enemies.spider import Spider
+from src.enemies.forest_guy import ForestGuy
+from src.enemies.bandit import Bandit
 from src.items.item import Item
 from src.characters.warrior import Warrior
 from src.locations.world import World
@@ -17,9 +37,6 @@ def setup_world(obj: World):
     archpriest_house.description = "Jesteś w domu Arcykapłana"
     archpriest_house.add_cutscene(ArchpriestHomeCutscene())
 
-    enemy1 = Warrior()
-    enemy1.name = "Bob"
-    archpriest_house.add_enemy(enemy1)
     # Alushakas forest
     alushakas_forest = Location()
     alushakas_forest.name = "Las Alush’haka"
@@ -27,6 +44,10 @@ def setup_world(obj: World):
                                     " ponieważ czają się tutaj dzikie zwierzęta")
     archpriest_house.add_location(alushakas_forest, alushakas_forest.name)
     alushakas_forest.add_location(archpriest_house, archpriest_house.name)
+
+    spider1 = Spider()
+    alushakas_forest.add_enemy(spider1)
+
     # Manasztor hill
     manasztor_hill = Location()
     manasztor_hill.name = "Wzgórze Manasztor"
@@ -35,10 +56,18 @@ def setup_world(obj: World):
     alushakas_forest.add_location(manasztor_hill, manasztor_hill.name)
     manasztor_hill.add_location(alushakas_forest, alushakas_forest.name)
 
+    forest_guy = ForestGuy()
+    for _ in range(2):
+        apple = Apple()
+        forest_guy.add_to_inventory(apple)
+    manasztor_hill.add_enemy(forest_guy)
+
     # Manasztor convent
     manasztor_convent = Location()
     manasztor_convent.name = "Klasztor Manasztor"
     manasztor_convent.add_cutscene(ManasztorConventCutscene())
+    manasztor_convent.add_location(manasztor_hill, manasztor_hill.name)
+    manasztor_hill.add_location(manasztor_convent, manasztor_convent.name)
 
     manasztor_hill.add_location(manasztor_convent, manasztor_convent.name)
 
@@ -49,6 +78,12 @@ def setup_world(obj: World):
                                      "musisz się mieć więc na baczności!!")
     manasztor_convent.add_location(plateau_of_wijjal, plateau_of_wijjal.name)
     plateau_of_wijjal.add_location(manasztor_convent, manasztor_convent.name)
+
+    bandit2 = Bandit()
+    bread = Bread()
+    bandit2.add_to_inventory(bread)
+
+    plateau_of_wijjal.add_enemy(bandit2)
     # Valley of Mijuhaj
     valley_of_mijuhaj = Location()
     valley_of_mijuhaj.name = "Dolina Mijuhaja"
@@ -57,17 +92,24 @@ def setup_world(obj: World):
                                      " wiele zostawionych ognisk przyciąga dzikie zwierzęta")
     plateau_of_wijjal.add_location(valley_of_mijuhaj, valley_of_mijuhaj.name)
     valley_of_mijuhaj.add_location(plateau_of_wijjal, plateau_of_wijjal.name)
+
+    boar1 = Boar()
+    valley_of_mijuhaj.add_enemy(boar1)
+
     # Usisi Ashak main gate
     usisi_ashak_main_gate = Location()
     usisi_ashak_main_gate.name = "Brama główna Usisi Ashak"
     usisi_ashak_main_gate.add_cutscene(GateCutscene())
     valley_of_mijuhaj.add_location(usisi_ashak_main_gate, usisi_ashak_main_gate.name)
     usisi_ashak_main_gate.add_location(valley_of_mijuhaj, valley_of_mijuhaj.name)
+
+    wolf1 = Wolf()
+    usisi_ashak_main_gate.add_enemy(wolf1)
+
     # Usisi Ashak main square
     usisi_ashak_main_square = Location()
     usisi_ashak_main_square.name = "Rynek miasta"
     usisi_ashak_main_square.description = "Jesteś na rynku, możesz tu zrobić zakupy i porozmawiać z lokalnymi mieszkańcami"
-    #TODO: I dont know what to do with this location
     usisi_ashak_main_gate.add_location(usisi_ashak_main_square, usisi_ashak_main_square.name)
     usisi_ashak_main_square.add_location(usisi_ashak_main_gate, usisi_ashak_main_gate.name)
 
@@ -88,6 +130,11 @@ def setup_world(obj: World):
     usisi_bar.add_location(usisi_underground_entrance, usisi_underground_entrance.name)
     usisi_underground_entrance.add_location(usisi_bar, 'pijalnia piwska')
 
+    rat1 = Rat()
+    rat2 = Rat()
+    usisi_underground_entrance.add_enemy(rat1)
+    usisi_underground_entrance.add_enemy(rat2)
+
     # Usisi underground
     usisi_underground = Location()
     usisi_underground.name = "Kanały miasta"
@@ -95,10 +142,19 @@ def setup_world(obj: World):
     usisi_underground_entrance.add_location(usisi_underground, usisi_underground.name)
     usisi_underground.add_location(usisi_underground_entrance, usisi_underground_entrance.name)
 
+    ratKing = RatKing()
+    largeHealingPotion = MediumAttackPotion()
+    largeAttackPotion = MediumHealingPotion()
+    ratKing.add_to_inventory(largeHealingPotion)
+    ratKing.add_to_inventory(largeAttackPotion)
+
+    usisi_underground.add_enemy(ratKing)
+
     # Michel's house
     michel_house = Location()
     michel_house.name = "Dom Michałka"
     michel_house.add_cutscene(MichelHouseCutscene())
+    usisi_underground.add_location(michel_house, michel_house.name)
 
     # Laligal's gate
     laligal_gate = Location()
@@ -106,6 +162,9 @@ def setup_world(obj: World):
     laligal_gate.description = ("Brama Laligala to miejsce z którego wyruszasz po potężną broń,"
                                 " miej się na baczności i idź walczyć o swoje przeznaczenie")
     michel_house.add_location(laligal_gate, laligal_gate.name)
+
+    druid = DarkDruid()
+    laligal_gate.add_enemy(druid)
 
     # Plain of cold water
     plain_of_cold_water = Location()
@@ -115,19 +174,31 @@ def setup_world(obj: World):
     laligal_gate.add_location(plain_of_cold_water, plain_of_cold_water.name)
     plain_of_cold_water.add_location(laligal_gate, laligal_gate.name)
 
+    lakeman = LakeMan()
+    plain_of_cold_water.add_enemy(lakeman)
+
     # Cold lake of the cold lake lady
     cold_lake_of_the_cold_lake_lady = Location()
     cold_lake_of_the_cold_lake_lady.name = "Jezioro zimnej pani"
-    #TODO: Add crucial enenmy named "Pani jeziora"
-
+    plain_of_cold_water.add_location(cold_lake_of_the_cold_lake_lady, cold_lake_of_the_cold_lake_lady.name)
     cold_lake_of_the_cold_lake_lady.add_location(usisi_ashak_main_square, usisi_ashak_main_square.name)
 
+    ladyOfTheLake = LadyOfTheLake()
+    largeHealingPotion = LargeHealingPotion()
+    largeAttackPotion = LargemAttackPotion()
+    ladyOfTheLake.add_to_inventory(largeAttackPotion)
+    ladyOfTheLake.add_to_inventory(largeHealingPotion)
+
+    cold_lake_of_the_cold_lake_lady.add_enemy(ladyOfTheLake)
     # Road of the death
     road_of_the_death = Location()
     road_of_the_death.name = "Droga śmierci"
     road_of_the_death.description = ("Piekło tej drogi jest gorące, uważaj żeby się nie sparzyć")
     road_of_the_death.add_location(usisi_ashak_main_square, usisi_ashak_main_square.name)
     usisi_ashak_main_square.add_location(road_of_the_death, road_of_the_death.name)
+
+    shaman = Shaman()
+    road_of_the_death.add_enemy(shaman)
 
     # The sinner's dodge
     the_sinners_dodge = Location()
@@ -137,6 +208,10 @@ def setup_world(obj: World):
     road_of_the_death.add_location(the_sinners_dodge, the_sinners_dodge.name)
     the_sinners_dodge.add_location(road_of_the_death, road_of_the_death.name)
 
+    
+    fireElemental = FireElemental()
+    the_sinners_dodge.add_enemy(fireElemental
+                                )
     # Sventino`s castle enterance
     sventino_castle_enterance = Location()
     sventino_castle_enterance.name = "Wejście do zamku Sventino"
@@ -145,12 +220,18 @@ def setup_world(obj: World):
     the_sinners_dodge.add_location(sventino_castle_enterance, sventino_castle_enterance.name)
     sventino_castle_enterance.add_location(the_sinners_dodge, the_sinners_dodge.name)
 
+    swentinoGuard = SventinoGuard()
+    sventino_castle_enterance.add_enemy(swentinoGuard)
+
     # Sventino`s room
     sventino_room = Location()
     sventino_room.name = "Leże Sventino"
     sventino_room.add_cutscene(SventinoCutscene())
-    #TODO: Add crucial enemy named "Sventino"
+
+    swentino = Sventino()
     sventino_castle_enterance.add_location(sventino_room, sventino_room.name)
 
-    obj.current_location = archpriest_house
+    sventino_room.add_enemy(swentino)
+    
+    obj.current_location = cold_lake_of_the_cold_lake_lady
     return obj
