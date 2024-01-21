@@ -3,18 +3,24 @@ from inventory import inventory
 from setup_world import setup_world
 from src.characters.player import create_player
 from src.characters.warrior import Warrior
+from src.characters.shooter import Shooter
+from src.characters.tank import Tank
 from fight import fight
 from src.items.item import Item
 from src.locations.world import World
 
-class_dict = {"czlowiek": Warrior,} # TODO: Add more classes
+class_dict = {"czlowiek": Warrior, "ork": Tank, "elf":Shooter}
 
 lady_of_lake_flag = False
 
 def main():
     print(get_dialogs_from_file("opening.txt"))
-    class_choice = input(get_dialogs_from_file("class_choice.txt"))
-    assert class_dict[class_choice]
+    while True:
+        class_choice = input(get_dialogs_from_file("class_choice.txt"))
+        if class_choice.lower() == "czlowiek" or class_choice.lower() == "ork" or class_choice.lower() == "elf":
+            break
+        else:
+            print("Niepoprawna klasa")
     name_choice = input(get_dialogs_from_file("name_choice.txt"))
     player = create_character(class_choice, name_choice)
     world = World()
