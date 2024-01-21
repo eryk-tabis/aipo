@@ -52,6 +52,8 @@ def main():
                     input()  # just to pause the program
                     return
                 world.current_location.remove_enemy(enemy)
+        lady_of_lake_flag = True
+        print(lady_of_lake_flag)
         print("Jesteś w: " + world.current_location.name)
         print("Co chcesz zrobić?")
         print(" - Sprawdź ekwipunek (inv)"
@@ -60,12 +62,12 @@ def main():
         if action == "sprawdź ekwipunek" or action == "inv":
             inventory(player)
         elif action == "idź do innej lokacji" or action == "move":
-            play_location(world)
+            play_location(world, lady_of_lake_flag)
         else:
             print("Niepoprawna akcja")
 
 
-def play_location(world: World):
+def play_location(world: World, lady_of_lake_flag):
     """Play the location"""
     print(world.current_location.get_description())
     print(world.current_location.get_locations_nearby(lady_of_lake_flag))

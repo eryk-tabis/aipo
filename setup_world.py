@@ -40,6 +40,7 @@ def setup_world(obj: World):
     manasztor_convent.name = "Klasztor Manasztor"
     manasztor_convent.add_cutscene(ManasztorConventCutscene())
 
+    manasztor_hill.add_location(manasztor_convent, manasztor_convent.name)
 
     # Plateau of Wijjal`s
     plateau_of_wijjal = Location()
@@ -133,6 +134,9 @@ def setup_world(obj: World):
     the_sinners_dodge.name = "Uskok grzesznika"
     the_sinners_dodge.description = ("Ten uskok był kopalnią Sventino na broń dla armi,"
                                      " która miała Cię pokononać! Musisz uważać na każdy krok")
+    road_of_the_death.add_location(the_sinners_dodge, the_sinners_dodge.name)
+    the_sinners_dodge.add_location(road_of_the_death, road_of_the_death.name)
+
     # Sventino`s castle enterance
     sventino_castle_enterance = Location()
     sventino_castle_enterance.name = "Wejście do zamku Sventino"
