@@ -5,6 +5,6 @@ class RatKing(Enemy):
         super(RatKing,self).__init__()
         self.name = "Król Szczurów"
         self.hp = 100
-        self.strength = 12
+        self.damage = 12
         self.defense = 5
         self.agility = 40

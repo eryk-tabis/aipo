@@ -5,6 +5,6 @@ class LakeMan(Enemy):
         super(LakeMan,self).__init__()
         self.name = "Jeziorak"
         self.hp = 40
-        self.strength = 4
+        self.damage = 4
         self.defense = 10
         self.agility = 70

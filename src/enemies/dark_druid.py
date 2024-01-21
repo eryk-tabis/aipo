@@ -5,6 +5,6 @@ class DarkDruid(Enemy):
         super(DarkDruid,self).__init__()
         self.name = "Ciemny druid"
         self.hp = 40
-        self.strength = 7
+        self.damage = 7
         self.defense = 4
         self.agility = 50
