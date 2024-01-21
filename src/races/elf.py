@@ -3,7 +3,7 @@ from src.weapons.bows.bow import Bow
 class Elf(Race):
     def __init__(self):
         super(Elf,self).__init__()
-        self.hp = 80
+        self.hp = 95
         self.stamina = 120
         self.damage = 5
         self.defense = 5

@@ -38,11 +38,11 @@ def loot_enemy_iventory(player, enemy: Enemy):
     for item in enemy.inventory.keys():
         player.add_to_inventory(enemy.inventory[item]["item"])
         print(Colorizer.colorize_orange(f" - {enemy.inventory[item]['item'].name} (x{enemy.inventory[item]['amount']})"))
+    print("\n")
 
 def fight(player, enemy: Enemy):
     """Fight the enemy"""
     print(f"Walczysz o życie z {Colorizer.colorize_red(enemy.name)}")
-    print(enemy.agility, player.agility)
     if(enemy.agility > player.agility):
         execute_enemy_attack(player, enemy)
     while enemy.hp > 0 and player.hp > 0:
@@ -54,7 +54,7 @@ def fight(player, enemy: Enemy):
             execute_player_attack(player, enemy)
             execute_enemy_attack(player, enemy)
         elif action == "otwórz ekwipunek" or action == "inv":
-            inventory(player)
+            inventory(player, enemy)
         else:
             print(f"")
             execute_enemy_attack(player, enemy)

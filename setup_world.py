@@ -1,3 +1,9 @@
+from src.items.medium_attack_potion import MediumAttackPotion
+from src.items.medium_healing_potion import MediumHealingPotion
+from src.items.large_attack_potion import LargemAttackPotion
+from src.items.large_healling_portion import LargeHealingPotion
+from src.items.bread import Bread
+from src.items.apple import Apple
 from src.enemies.lady_from_lake import LadyOfTheLake
 from src.enemies.sventino import Sventino
 from src.enemies.sventino_guard import SventinoGuard
@@ -51,6 +57,9 @@ def setup_world(obj: World):
     manasztor_hill.add_location(alushakas_forest, alushakas_forest.name)
 
     forest_guy = ForestGuy()
+    for _ in range(2):
+        apple = Apple()
+        forest_guy.add_to_inventory(apple)
     manasztor_hill.add_enemy(forest_guy)
 
     # Manasztor convent
@@ -71,6 +80,9 @@ def setup_world(obj: World):
     plateau_of_wijjal.add_location(manasztor_convent, manasztor_convent.name)
 
     bandit2 = Bandit()
+    bread = Bread()
+    bandit2.add_to_inventory(bread)
+
     plateau_of_wijjal.add_enemy(bandit2)
     # Valley of Mijuhaj
     valley_of_mijuhaj = Location()
@@ -131,12 +143,18 @@ def setup_world(obj: World):
     usisi_underground.add_location(usisi_underground_entrance, usisi_underground_entrance.name)
 
     ratKing = RatKing()
+    largeHealingPotion = MediumAttackPotion()
+    largeAttackPotion = MediumHealingPotion()
+    ratKing.add_to_inventory(largeHealingPotion)
+    ratKing.add_to_inventory(largeAttackPotion)
+
     usisi_underground.add_enemy(ratKing)
 
     # Michel's house
     michel_house = Location()
     michel_house.name = "Dom Michałka"
     michel_house.add_cutscene(MichelHouseCutscene())
+    usisi_underground.add_location(michel_house, michel_house.name)
 
     # Laligal's gate
     laligal_gate = Location()
@@ -162,12 +180,16 @@ def setup_world(obj: World):
     # Cold lake of the cold lake lady
     cold_lake_of_the_cold_lake_lady = Location()
     cold_lake_of_the_cold_lake_lady.name = "Jezioro zimnej pani"
-    
-    ladyOfTheLake = LadyOfTheLake()
-    cold_lake_of_the_cold_lake_lady.add_enemy(ladyOfTheLake)
-
+    plain_of_cold_water.add_location(cold_lake_of_the_cold_lake_lady, cold_lake_of_the_cold_lake_lady.name)
     cold_lake_of_the_cold_lake_lady.add_location(usisi_ashak_main_square, usisi_ashak_main_square.name)
 
+    ladyOfTheLake = LadyOfTheLake()
+    largeHealingPotion = LargeHealingPotion()
+    largeAttackPotion = LargemAttackPotion()
+    ladyOfTheLake.add_to_inventory(largeAttackPotion)
+    ladyOfTheLake.add_to_inventory(largeHealingPotion)
+
+    cold_lake_of_the_cold_lake_lady.add_enemy(ladyOfTheLake)
     # Road of the death
     road_of_the_death = Location()
     road_of_the_death.name = "Droga śmierci"
@@ -211,5 +233,5 @@ def setup_world(obj: World):
 
     sventino_room.add_enemy(swentino)
     
-    obj.current_location = archpriest_house
+    obj.current_location = cold_lake_of_the_cold_lake_lady
     return obj
