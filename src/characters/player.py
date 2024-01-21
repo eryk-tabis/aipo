@@ -1,5 +1,6 @@
 from src.characters.warrior import Warrior
-# TODO: Add more classes
+from src.characters.tank import Tank
+from src.characters.shooter import Shooter
 def create_player(name: str, character_class):
     class Player(character_class):
         def __init__(self, name: str, **kwargs):
