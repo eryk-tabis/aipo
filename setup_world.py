@@ -16,6 +16,10 @@ def setup_world(obj: World):
     archpriest_house.name = "Dom Arcykapłana"
     archpriest_house.description = "Jesteś w domu Arcykapłana"
     archpriest_house.add_cutscene(ArchpriestHomeCutscene())
+
+    enemy1 = Warrior()
+    enemy1.name = "Bob"
+    archpriest_house.add_enemy(enemy1)
     # Alushakas forest
     alushakas_forest = Location()
     alushakas_forest.name = "Las Alush’haka"

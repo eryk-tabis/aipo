@@ -4,55 +4,67 @@ from src.characters.character import Character
 from src.characters.warrior import Warrior
 from inventory import inventory
 
+
+def execute_attack(attacker, attacked):
+    if(attacker.hp <= 0 or attacked.hp <= 0): return
+    wasAttackSuccessfull = attacker.try_to_attack()
+    if wasAttackSuccessfull:
+        attacked.receive_damage(attacker.equipped.damage)
+    return wasAttackSuccessfull
+
 def execute_enemy_attack(player, enemy):
-     if(player.hp == 0 or enemy.hp == 0): return
-     wasAttackBlocked = randint(0, 30) == 1
-     if(wasAttackBlocked):
-         print(f"Enemy attacked you with {Colorizer.colorize_orange(enemy.equipped.name)} {Colorizer.colorize_green('but you blocked the attack')}. You have {Colorizer.colorize_green(player.hp)} hp left")
+     wasAttackSuccessfull = execute_attack(enemy, player)
+     if(wasAttackSuccessfull == None): return
+     if(not wasAttackSuccessfull):
+         print(f"Przeciwnik zaatakował Ciebię za pomocą {Colorizer.colorize_orange(enemy.equipped.name)} {Colorizer.colorize_green('ale nie trafił!')}. Pozostało Ci {Colorizer.colorize_green(player.hp)} hp")
          return
      
-     player.hp = (player.hp - enemy.equipped.damage)
-     print(f"Enemy successfuly attacked you with {enemy.equipped.name} and you have {Colorizer.colorize_green(player.hp)} hp left")
+     if(player.hp <= 0): return
+     print(f"Przeciwnik zaatakował Cię {enemy.equipped.name} i zostało Ci {Colorizer.colorize_green(player.hp)} hp")
 
 def execute_player_attack(player, enemy):
-    if(player.hp == 0 or enemy.hp == 0): return
-    wasAttackBlocked = randint(0, 8) == 1
-    if wasAttackBlocked:
-        print(f"You attack the {Colorizer.colorize_red(enemy.name)} with {Colorizer.colorize_orange(player.equipped.name)} but {Colorizer.colorize_red('the enemy blocked your attack')}. It has {Colorizer.colorize_red(enemy.hp)} hp left")
+    wasAttackSuccessfull = execute_attack(player, enemy)
+    if wasAttackSuccessfull == None: return
+    if not wasAttackSuccessfull:
+        print(f"Zaatakowałeś {Colorizer.colorize_red(enemy.name)} za pomocą {Colorizer.colorize_orange(player.equipped.name)} ale {Colorizer.colorize_red('nie trafiłeś!')}. Przeciwnik ma {Colorizer.colorize_red(enemy.hp)} hp")
         return
     
-    enemy.hp -= player.equipped.damage
-    print(f"You attack the {Colorizer.colorize_red(enemy.name)} with {Colorizer.colorize_orange(player.equipped.name)}. It has {Colorizer.colorize_red(enemy.hp)} hp left")
+    if(enemy.hp <= 0): return
+    print(f"Zaatakowałeś {Colorizer.colorize_red(enemy.name)} za pomocą {Colorizer.colorize_orange(player.equipped.name)}. Przewnik ma {Colorizer.colorize_red(enemy.hp)} hp")
 
 def loot_enemy_iventory(player, enemy: Character):
-    print(f"You have recieved some items from the defeated enemy:")
+    print(f"Otrzymałeś następujące rzeczy od przeciwnika:")
     for item in enemy.inventory.keys():
         player.add_to_inventory(enemy.inventory[item]["item"])
         print(Colorizer.colorize_orange(f" - {enemy.inventory[item]['item'].name} (x{enemy.inventory[item]['amount']})"))
 
 def fight(player, enemy: Warrior):
     """Fight the enemy"""
-    print(f"You encounter an {Colorizer.colorize_red(enemy.name)}")
+    print(f"Walczysz o życie z {Colorizer.colorize_red(enemy.name)}")
+    print(enemy.agility, player.agility)
+    if(enemy.agility > player.agility):
+        execute_enemy_attack(player, enemy)
     while enemy.hp > 0 and player.hp > 0:
-        print(f"It is your turn, you have {Colorizer.colorize_green(player.hp)} hp and the enemy has {Colorizer.colorize_red(enemy.hp)} hp, what do you want to do?")
-        print(f"\n - Attack (a)"
-              f"\n - Open inventory (inv) \n")
+        print(f"Twoja kolej, masz {Colorizer.colorize_green(player.hp)} hp a przeciwnik {Colorizer.colorize_red(enemy.hp)} hp, co zamierzasz zrobić?")
+        print(f"\n - Atakuj (a)"
+              f"\n - Sprawdź ekwipunek (inv) \n")
         action = input().lower()
-        if action == "attack" or action == "a":
+        if action == "atakuj" or action == "a":
             execute_player_attack(player, enemy)
             execute_enemy_attack(player, enemy)
-        elif action == "open inventory" or action == "inv":
+        elif action == "otwórz ekwipunek" or action == "inv":
             inventory(player)
         else:
             print(f"")
             execute_enemy_attack(player, enemy)
-    if(enemy.hp == 0):
-        print(f"You have defeated {enemy.name}! Congrats!")
+    if(enemy.hp <= 0):
+        
+        print(f"Zabiłeś przeciwnika {Colorizer.colorize_red(enemy.name)}! Gratulacje!\n")
         isInventoryNotEmpty = len(enemy.inventory.keys()) > 0
         if(isInventoryNotEmpty):
             loot_enemy_iventory(player, enemy)
         return True
-    if(player.hp == 0):
-        print(f"You have been defeated by {enemy.name} :(")
+    if(player.hp <= 0):
+        print(f"{Colorizer.colorize_red(enemy.name)} Cię zabił :(")
         return False
        
