@@ -87,7 +87,12 @@ def play_location(world: World, lady_of_lake_flag):
     print("------------------------------")
     print(world.current_location.get_description())
     print(world.current_location.get_locations_nearby(lady_of_lake_flag))
-    world.current_location = world.current_location.get_location(input("Gdzie chcesz iść?"))
+    future_location = world.current_location.get_location(input("Gdzie chcesz iść?"))
+    while not future_location:
+        print("Nie możesz iść w tą stronę")
+        future_location = world.current_location.get_location(input(""))
+    world.current_location = future_location
+    # world.current_location = world.current_location.get_location(input("Gdzie chcesz iść?"))
 
 
 def create_character(class_choice, name_choice):

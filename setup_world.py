@@ -233,5 +233,5 @@ def setup_world(obj: World):
 
     sventino_room.add_enemy(swentino)
     
-    obj.current_location = cold_lake_of_the_cold_lake_lady
+    obj.current_location = archpriest_house
     return obj
