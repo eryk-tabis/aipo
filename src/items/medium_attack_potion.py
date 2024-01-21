@@ -5,8 +5,8 @@ class MediumAttackPotion(Item):
         super(MediumAttackPotion,self).__init__
         self.name = "Średnia mikstura ataku"
         self.description = "Siła pozwalająca wyrywać drzewa z korzeniami"
-        self.type = "atak"
-        self.use_value = Item("Średnia mikstura ataku","Siła pozwalająca wyrywać drzewa z korzeniami","atak",10,1) # This is the value that the item will do when used
+        self.type = "Damage"
+        self.use_value = 10 # This is the value that the item will do when used
         self.amount = 1
     
     

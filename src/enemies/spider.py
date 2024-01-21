@@ -5,7 +5,6 @@ class Spider(Enemy):
         super(Spider,self).__init__()
         self.name = "Pająk"
         self.hitPoints = 10
-        self.stamina = 5
         self.strength = 5
         self.defense = 2
-        self.agility = 2
+        self.agility = 30

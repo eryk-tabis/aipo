@@ -7,6 +7,6 @@ class Human(Race):
         self.stamina = 100
         self.strength = 10
         self.defense = 10
-        self.agility = 10
+        self.agility = 75
         self.luck = 10
         self.equipped = Sword()

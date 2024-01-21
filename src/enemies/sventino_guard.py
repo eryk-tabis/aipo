@@ -5,7 +5,6 @@ class SventinoGuard(Enemy):
         super(SventinoGuard,self).__init__()
         self.name = "Strażnik Sventino"
         self.hitPoints = 100
-        self.stamina = 5
         self.strength = 8
         self.defense = 5
-        self.agility = 1
+        self.agility = 60

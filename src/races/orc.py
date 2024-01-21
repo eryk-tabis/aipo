@@ -10,6 +10,6 @@ class Orc(Race):
         self.stamina = 80
         self.strength = 15
         self.defense = 15
-        self.agility = 5
+        self.agility = 60
         self.luck = 5
         self.equipped = Club()

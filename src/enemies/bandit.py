@@ -5,7 +5,6 @@ class Bandit(Enemy):
         super(Bandit,self).__init__()
         self.name = "Bandyta"
         self.hitPoints = 15
-        self.stamina = 5
         self.strength = 7
         self.defense = 3
-        self.agility = 2
+        self.agility = 60
