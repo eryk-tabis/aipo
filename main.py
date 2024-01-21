@@ -48,12 +48,12 @@ def main():
                 world.current_location.remove_enemy(enemy)
         print("Jesteś w: " + world.current_location.name)
         print("Co chcesz zrobić?")
-        print(" - Sprawdź ekwipunek"
-              "\n - Idź do innej lokacji")
-        action = str(input())
-        if action.lower() == "sprawdź ekwipunek":
+        print(" - Sprawdź ekwipunek (inv)"
+              "\n - Idź do innej lokacji (move)")
+        action = str(input()).lower()
+        if action == "sprawdź ekwipunek" or action == "inv":
             inventory(player)
-        elif action.lower() == "idź do innej lokacji":
+        elif action == "idź do innej lokacji" or action == "move":
             play_location(world)
         else:
             print("Niepoprawna akcja")
